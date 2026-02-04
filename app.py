@@ -1,3 +1,34 @@
+# imports
+import streamlit as st
+import json
+from pathlib import Path
+# otros imports que ya tengas
+
+# ⬇️ AQUÍ pegas el bloque nuevo (loader del JSON)
+DATA_PATH = Path("data/vocab_general_cefr.json")
+
+st.title("CEFR Vocab (MVP)")
+
+if not DATA_PATH.exists():
+    st.error(f"No encuentro el archivo: {DATA_PATH}")
+    st.stop()
+
+with DATA_PATH.open("r", encoding="utf-8") as f:
+    data = json.load(f)
+
+items = data.get("items", [])
+st.success(f"JSON cargado ✅  Items: {len(items)}")
+
+st.write("Primer item (preview):")
+if items:
+    st.json(items[0])
+else:
+    st.warning("No hay items aún en 'items'.")
+
+# ⬇️ debajo de esto sigue TU código actual (sin tocarlo)
+# ... lo que ya tenías antes
+
+
 import json
 from pathlib import Path
 from datetime import datetime
